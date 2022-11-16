@@ -4,73 +4,108 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\PostProduct;
 
 class PostController extends Controller
 {
     public function index () {
-        $post = Post::find(2);// обращаемся через класс Post к методу find,который ищет по (id)
+        //$post = Post::find(1);// обращаемся через класс Post к методу find,который ищет по (id)
         //dd($post);
         $posts = Post::all();
         //dd($posts); дампит переменную и останавливает скрипт
         //методом view(): из директории /viev первый аргумент   <file>, второй - метод compact()c  аргументом в виде переменной без $ строка 12
-        return view('posts', compact('posts'));
+        //$product = Product::find(2);
+        //dd($post->product);
+        
+        return view('post.index', compact('posts'));
     } 
     public function create () {
-        $postsArr = [
-            ['title' => 'title post',
-            'content' => 'some interesting text',
-            'image' => 'picture',
-            'likes' => 20,
-            'is_published' => 1,
-        ],
-        ['title' => 'another title post',
-            'content' => 'another some interesting text',
-            'image' => 'another picture',
-            'likes' => 50,
-            'is_published' => 0,
-    ],
-];
-//добавление массива объектов (постов) в БД
-foreach ($postsArr as $item){//в цикле перебираем многомерный массив и присваиваем $item массив данных для 
-    //dd($item);
-    POST:: create ($item);
-
-}
-/*добавление одного объекта (поста) в БД
-POST:: create ([
-    'title' => 'another title post',
-            'content' => 'another some interesting text',
-            'image' => 'another picture',
-            'is_published' => 0,
-]);*/
-dd('created');
+        $posts = Post::all();
+        $products = Product::all();
+        return view('post.create', compact('posts', 'products'));  
+        
+        
     }
-    public function update () {
-        $post = Post::find(3);
-        //затем через переменную вызовем метод update класса Post
-        //обновим НУЖНЫЕ атрибуты (поля) в БД
-        $post->update([
-            'content' => 'update! interesting text',
-            'image' => 'update! picture',
-            'is_published' => 0,
+    public function store()
+    {
+        $data = request()->validate([
+            'title'=>'required|string',
+            'content'=>'required|string',
+            'image'=>'required|string',
+            'products'=>'',
+        ]);
+        //products - атрибут (поле) которого нет в таблице post поэтому его нужно 
+        //выделить из переменной $data поле products сохранить эти данные в $products
+        $products = $data['products'];
+        //затем удаляем это поле из $data
+        unset($data['products']);
+        //dd($data, $products);
+        //сохраним результат работы метода create класса Post в переменной $post
+        $post = Post::create($data);
+    
+    /*этот скрипт пошагового выполнения добавления в БД с маркировкой времени
+        //циклом по массиву $products==============
+        foreach($products as $product){
+            //обращаемся к классу PostProduct
+            PostProduct::firstOrCreate([
+                'product_id'=>$product,
+                'post_id'=>$post->id,
+            ]);
+        }
+//==================================================
+        */  
+        //метод laravel attach позволяет сократить запись, но без маркировки времени 
+        //к этому посту($post) через метод класса Post  product привяжет методом attach данные из $products
+        $post->product()->attach($products);
+        return redirect()->route('post.index');
+    }
+    public function show($id)
+    {
+        $posts = Post::all();
+        $post = Post::FindOrFail($id);
+        return view('post.show', compact('post','posts'));
+    }
+    /*helper класса Post сокращает запись при условии в роуте и функции записи равны {<post>}=$post
+    public function show(Post $post)
+    {
+                dd($post);
+    }*/
+    public function  edit(Post $post) 
+    {
+        $posts = Post::all();
+        $products = Product::all();
+        return view('post.edit', compact('post','posts', 'products'));
 
+    }
+    public function update (Post $post)
+    {
+        $data = request()->validate([
+            'title'=>'required|string',
+            'content'=>'required|string',
+            'image'=>'required|string',
+            'products'=>'',
 
         ]);
-        echo 'информация добавлена!'.$post['updated_at'];
-    }
-    public function delete()
-    {
-//если удаляем данные
-        //$post = Post::find(5);
+        //применяем тот же подход что и  для создания
+        $products = $data['products'];
+        unset($data['products']);
+        $post->update($data);
+        //только метод attach заменим sync
+        $post->product()->sync($products);
         
-        //$post->delete();
-//для восстановления прописываем softDelete() в функции up
-//пример восстановления ранее удаленного атрибута(поля) зарезервированными методами
-        $post = Post::withTrashed()->find(5);
-        $post->restore();
-
-        echo 'удалено: '.$post['updated_at'].'успешно!';
+        return redirect()->route('post.show', $post->id);
+        
     }
+    public function destroy(Post $post)
+    {
+        
+        $post->destroy($post->id);
+        return redirect()->route('post.index');
+
+    }
+    
 //избежать дублирования по каким-либо атрибутам при добавлении  
 //аргументы два массива сравнивает ключевые атрибуты первого с БД
 //если совпадают не добавляет для наглядности выводит dump
