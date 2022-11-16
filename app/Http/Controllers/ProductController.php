@@ -11,9 +11,10 @@ class ProductController extends Controller
     public function index () {
         
         $products = Product::all();
+        $categories = Category::all();
         //dd($Products); дампит переменную и останавливает скрипт
         //методом view(): из директории /viev первый аргумент   <file>, второй - метод compact()c  аргументом в виде переменной без $ строка 12
-        return view('product.index', compact('products'));
+        return view('product.index', compact('products', 'categories'));
     } 
     public function create () {
         $products = Product::all();
@@ -43,6 +44,16 @@ class ProductController extends Controller
         $product = Product::FindOrFail($id);
         $categories = Category::all();
         return view('product.show', compact('product', 'categories'));
+    }
+    public function showByCategory($id)
+    {
+        $categories = Category::all();
+        $product_cat = Product::where('category_id',$id)->get();
+        $products = Product::all();
+        //dd($product_cat);
+        
+        $categories = Category::all();
+        return view('product.showByCategory', compact('product_cat', 'categories', 'id'));
     }
     /*helper класса Product сокращает запись при условии в роуте и функции записи равны {<Product>}=$Product
     public function show(Product $product)

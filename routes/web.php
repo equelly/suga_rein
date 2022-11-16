@@ -38,6 +38,7 @@ Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('p
 Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name('product.create');
 Route::post('/products', 'App\Http\Controllers\ProductController@store')->name('product.store');
 Route::get('/product/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
+Route::get('/product/category/{category}', 'App\Http\Controllers\ProductController@showByCategory')->name('product.showByCategory');
 Route::get('/products/{product}/edit', 'App\Http\Controllers\ProductController@edit')->name('product.edit');
 Route::patch('/products/{product}', 'App\Http\Controllers\ProductController@update')->name('product.update');
 Route::delete('/products/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.delete');
