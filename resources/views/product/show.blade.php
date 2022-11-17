@@ -11,7 +11,8 @@
     <p> {{$product->id}}. {{$product->name}}</p>
     <p> категория:
     @foreach($categories as $category)
-    {{$category->id == $product->category_id ? $category->title : ''}}
+    {{$category->id == $product->category_id ? $category->title:''}}
+    
     @endforeach</p>
     </div>
     <div>

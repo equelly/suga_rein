@@ -24,10 +24,7 @@ return new class extends Migration
             //метод позволяет удалять с возможностью отката назад
             //нужно прописать ссылку на него в models
             $table->softDeletes();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->index('product_id', 'post_product_idx');
-            $table->foreign('product_id', 'post_product_fk')->on('products')->references('id');
-       
+            
         });
     }
 

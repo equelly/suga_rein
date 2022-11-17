@@ -76,7 +76,9 @@ class PostController extends Controller
     {
         $posts = Post::all();
         $products = Product::all();
-        return view('post.edit', compact('post','posts', 'products'));
+        $postProducts = PostProduct::all();
+        //dd($post);
+        return view('post.edit', compact('postProducts','posts', 'products', 'post'));
 
     }
     public function update (Post $post)

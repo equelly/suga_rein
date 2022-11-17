@@ -33,13 +33,16 @@
       @foreach($products as $product)
 
       <option 
-        @foreach($posts as $postProduct)
-        {{$product->id == $postProduct->id ? 'selected':''}}
-      value="{{$product->id}}">{{$product->name}}</option>
+        @foreach($postProducts as $postProduct)
+        {{$product->id === $postProduct->product_id && $post->id === $postProduct->post_id ? 'selected' : ''}}
+        @endforeach
+        value="{{$product->id}}">{{$product->name}}
+        
+      </option>
       @endforeach
-      @endforeach
+      
     </select>
-
+     
   </div>
   <button type="submit" class="btn btn-primary">обновить</button>
 </form>

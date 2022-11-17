@@ -25,6 +25,6 @@ public function category(){
 //атрубуты связаны с product
 
     public function product(){
-        return $this->belongsToMany(Post::class, 'post_products','post_id','product_id');
+        return $this->belongsToMany(Product::class, 'post_products','product_id','post_id');
     }
 }

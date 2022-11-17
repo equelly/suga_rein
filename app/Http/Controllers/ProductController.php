@@ -31,7 +31,7 @@ class ProductController extends Controller
             'fat'=>'required',
             'prot'=>'required',
             'carb'=>'required',
-            'category_id'=>'',
+            'category_id'=>'required'
         ]);
         
         Product::create($data);
@@ -42,15 +42,16 @@ class ProductController extends Controller
         $products = Product::all();
         //dd($products);
         $product = Product::FindOrFail($id);
+        //dd($product);
         $categories = Category::all();
-        return view('product.show', compact('product', 'categories'));
+        return view('product.show', compact('product', 'categories', 'id'));
     }
     public function showByCategory($id)
     {
         $categories = Category::all();
         $product_cat = Product::where('category_id',$id)->get();
         $products = Product::all();
-        //dd($product_cat);
+       
         
         $categories = Category::all();
         return view('product.showByCategory', compact('product_cat', 'categories', 'id'));
