@@ -1,11 +1,11 @@
 <?php
-
+//для многометодных контроллеров
+/*
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\Post;
 use App\Models\Product;
-use App\Models\Category;
 use App\Models\PostProduct;
 
 class PostController extends Controller
@@ -58,7 +58,7 @@ class PostController extends Controller
         */  
         //метод laravel attach позволяет сократить запись, но без маркировки времени 
         //к этому посту($post) через метод класса Post  product привяжет методом attach данные из $products
-        $post->product()->attach($products);
+ /*       $post->product()->attach($products);
         return redirect()->route('post.index');
     }
     public function show($id)
@@ -72,7 +72,7 @@ class PostController extends Controller
     {
                 dd($post);
     }*/
-    public function  edit(Post $post) 
+ /*   public function  edit(Post $post) 
     {
         $posts = Post::all();
         $products = Product::all();
@@ -146,3 +146,4 @@ dd($post->content);
 }
 
 }
+*/

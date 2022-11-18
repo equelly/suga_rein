@@ -17,21 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//CRUD для рецептов
+Route::group(['namespace'=>'App\Http\Controllers\Post'], function(){
+
+    Route::get('/posts', 'IndexController')->name('post.index');//laravel 8* требует полный путь к контроллеру
+    Route::get('/posts/create', 'CreateController')->name('post.create');
+    Route::post('/posts', 'StoreController')->name('post.store');
+    Route::get('/posts/{post}', 'ShowController')->name('post.show');
+    Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
+    Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
+    Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
+
+} );
 
 
-Route::get('/posts', 'App\Http\Controllers\PostController@index')->name('post.index');//laravel 8* требует полный путь к контроллеру
-Route::get('/posts/create', 'App\Http\Controllers\PostController@create')->name('post.create');
-Route::get('/posts/update', 'App\Http\Controllers\PostController@update');
-Route::get('/posts/delete', 'App\Http\Controllers\PostController@delete');
-Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
-Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
-Route::get('/posts/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');
 
-Route::post('/posts', 'App\Http\Controllers\PostController@store')->name('post.store');
-Route::get('/posts/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
-Route::get('/posts/{post}/edit', 'App\Http\Controllers\PostController@edit')->name('post.edit');
-Route::patch('/posts/{post}', 'App\Http\Controllers\PostController@update')->name('post.update');
-Route::delete('/posts/{post}', 'App\Http\Controllers\PostController@destroy')->name('post.delete');
+//==================
 
 //для продуктов CRUD
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('product.index');//laravel 8* требует полный путь к контроллеру
@@ -50,3 +51,11 @@ Route::get('/contacts', 'App\Http\Controllers\ContactController@index')->name('c
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/posts/update', 'App\Http\Controllers\PostController@update');
+Route::get('/posts/delete', 'App\Http\Controllers\PostController@delete');
+Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
+Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
+Route::get('/posts/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');
+

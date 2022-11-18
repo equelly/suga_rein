@@ -15,7 +15,7 @@ class Post extends Model
     //
     //хотя таблица в БД создавалась миграцией вместе с моделью, но лучше указать явно
     protected $table = 'posts';
-    
+    //разрешение на редактирование атрибуров в БД([] или = false)
     protected $guarded = [];
 //метод для связывания один ко многим
 public function category(){
