@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Post;
 
 
 use App\Models\Post;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Post\BaseController;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
    public function __invoke(Post $post)
    {
