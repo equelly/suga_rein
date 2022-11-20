@@ -16,7 +16,7 @@ class Product extends Model
     //метод для связывания многих ко многим определяет сколько product и какие
     //атрубуты связаны с post
     public function post(){
-        return $this->belongsToMany(Product::class, 'post_products', 'post_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'post_products',  'product_id', 'post_id');
     }
 
 }

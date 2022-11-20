@@ -5,25 +5,15 @@ namespace App\Http\Controllers\Post;
 
 use App\Models\Post;
 use App\Http\Controllers\Post\BaseController;
+use App\Http\Requests\Post\UpdateRequest;
 
 class UpdateController extends BaseController
 {
-   public function __invoke(Post $post)
+   public function __invoke(UpdateRequest $request, Post $post)
    {
-      $data = request()->validate([
-         'title'=>'required|string',
-         'content'=>'required|string',
-         'image'=>'required|string',
-         'products'=>'',
-
-     ]);
-     //применяем тот же подход что и  для создания
-     $products = $data['products'];
-     unset($data['products']);
-     $post->update($data);
-     //только метод attach заменим sync
-     $post->product()->sync($products);
-     
+      $data = $request->validated();
+      
+     $this->service->update($post, $data);
      return redirect()->route('post.show', $post->id);
      
  }

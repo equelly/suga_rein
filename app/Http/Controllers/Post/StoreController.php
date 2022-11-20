@@ -3,28 +3,19 @@
 namespace App\Http\Controllers\Post;
 
 
-use App\Models\Post;
-use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\Post\BaseController;
+use App\Http\Requests\Post\StoreRequest;
 
 class StoreController extends BaseController
 {
-   public function __invoke()
+   public function __invoke(StoreRequest $request)
    {  
-      $data = request()->validate([
-            'title'=>'required|string',
-            'content'=>'required|string',
-            'image'=>'required|string',
-            'products'=>'',
-        ]);
-      
-        $products = $data['products'];
-      
-        unset($data['products']);
+    //Request
+        $data = $request->validated();
+    //Service   
+        $this->service->store($data);
         
-        $post = Post::create($data);
-    
-        $post->product()->attach($products);
         return redirect()->route('post.index');
       
     }

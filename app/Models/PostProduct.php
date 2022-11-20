@@ -13,4 +13,7 @@ class PostProduct extends Model
     
     protected $guarded = false;
     //=============
+    public function product(){
+        return $this->belongsToMany(Product::class, 'posts','product_id','id');
+    }
 }

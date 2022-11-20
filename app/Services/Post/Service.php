@@ -22,6 +22,7 @@ public function store($data)
 public function update($post, $data)
 {
     //применяем тот же подход что и  для создания
+    //dd($data);
     $products = $data['products'];
     unset($data['products']);
     $post->update($data);
