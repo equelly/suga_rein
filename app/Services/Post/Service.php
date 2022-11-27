@@ -29,5 +29,7 @@ public function update($post, $data)
     //только метод attach заменим sync
     $post->product()->sync($products);
 }
-
+public function mydata(){
+  return  "done";
+} 
 }

@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index () {
         
-        $products = Product::all();
+        $products = Product::paginate(3);
         $categories = Category::all();
         //dd($Products); дампит переменную и останавливает скрипт
         //методом view(): из директории /viev первый аргумент   <file>, второй - метод compact()c  аргументом в виде переменной без $ строка 12

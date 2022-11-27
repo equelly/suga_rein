@@ -4,7 +4,7 @@
 </head>
 <body>
     <H1>продукты</H1>
-    
+    <p>общеее количество: {{$products->total()}}</p>
    
      <div>
         <a href="{{route('product.create')}}" class="btn btn-primary mb-3">добавить новый продукт</a>
@@ -25,6 +25,8 @@
             @endforeach
             </div>
         </div>
-        
+        <div>
+        {{$products->links()}}
+        </div>
         
 @endsection

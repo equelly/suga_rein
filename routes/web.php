@@ -17,10 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//CRUD для рецептов
+//CRUD для рецептов--------------------
 Route::group(['namespace'=>'App\Http\Controllers\Post'], function(){
 
-    Route::get('/posts', 'IndexController')->name('post.index');//laravel 8* требует полный путь к контроллеру
+    Route::get('/posts', 'IndexController')->name('post.index'); //laravel 8* требует полный путь к контроллеру
     Route::get('/posts/create', 'CreateController')->name('post.create');
     Route::post('/posts', 'StoreController')->name('post.store');
     Route::get('/posts/{post}', 'ShowController')->name('post.show');
@@ -29,10 +29,22 @@ Route::group(['namespace'=>'App\Http\Controllers\Post'], function(){
     Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
 
 } );
+//---------------------------------------
+//CRUD для админки=======================prefix для всей группы перед /post вставит admin
+Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], function(){
+    Route::group(['namespace'=>'Post'], function(){
+        Route::get('/post', 'IndexController')->name('admin.post.index');
+        Route::get('/post/create', 'CreateController')->name('admin.post.create');
+        Route::post('/post', 'StoreController')->name('admin.post.store');
+        Route::get('/post/{post}', 'ShowController')->name('admin.post.show');
+        Route::get('/post/{post}/edit', 'EditController')->name('admin.post.edit');
+        Route::patch('/post/{post}', 'UpdateController')->name('admin.post.update');
+        Route::delete('/post/{post}', 'DestroyController')->name('admin.post.delete');
+    });
+});
 
 
-
-//==================
+//=======================================
 
 //для продуктов CRUD
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('product.index');//laravel 8* требует полный путь к контроллеру
