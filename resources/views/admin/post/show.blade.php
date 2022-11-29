@@ -14,9 +14,12 @@
     <div>
         <a href="{{route('admin.post.index')}}" class="btn btn-primary mt-3">вернуться к постам</a>
     </div>
+    <!-- директива can принимает арументом способность 'view' и пользователя из auth()->user() из объекта класса AdminPolicy-->
+    @can('view', auth()->user())
     <div>
         <a href="{{route('admin.post.edit', $post->id)}}" class="btn btn-primary mt-3">редактировать</a>
     </div>
+    
     <div>
         <!--оборачиваем в форму т.к. в html нет метода delete -->
         <form action="{{route('admin.post.delete', $post->id)}}" method="POST">
@@ -26,4 +29,5 @@
         </form>
         
     </div>
+    @endcan
 @endsection

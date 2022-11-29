@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+Route::get('/', 'App\Http\Controllers\HomeController@index');
 
 //CRUD для рецептов--------------------
 Route::group(['namespace'=>'App\Http\Controllers\Post'], function(){
@@ -31,7 +29,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Post'], function(){
 } );
 //---------------------------------------
 //CRUD для админки=======================prefix для всей группы перед /post вставит admin
-Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], function(){
+Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin','middleware'=>'admin'], function(){
     Route::group(['namespace'=>'Post'], function(){
         Route::get('/post', 'IndexController')->name('admin.post.index');
         Route::get('/post/create', 'CreateController')->name('admin.post.create');
@@ -71,3 +69,12 @@ Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstO
 Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
 Route::get('/posts/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');
 
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/refusal', function () {
+    //
+    return view('refusal');
+})->name('refusal');

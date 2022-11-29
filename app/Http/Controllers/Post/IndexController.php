@@ -11,7 +11,8 @@ use App\Http\Requests\Post\FilterRequest;
 class IndexController extends BaseController
 {
    public function __invoke(FilterRequest $request)
-   {     
+   {    
+         
          //шаблонный подход filter
          $data = $request->validated();
          $filter = app()->make(PostFilter::class, ['queryParams' =>array_filter($data)]);

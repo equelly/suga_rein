@@ -10,12 +10,16 @@
     {{$post->id}}. {{$post->title}}____{{$post->content}}
    
     </div>
+   
     <div>
+        
         <a href="{{route('post.index')}}" class="btn btn-primary mt-3">вернуться к постам</a>
     </div>
+    
     <div>
         <a href="{{route('post.edit', $post->id)}}" class="btn btn-primary mt-3">редактировать</a>
     </div>
+    
     <div>
         <!--оборачиваем в форму т.к. в html нет метода delete -->
         <form action="{{route('post.delete', $post->id)}}" method="post">
