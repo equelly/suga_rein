@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Post;
+
 
 class ProductController extends Controller
 {
@@ -51,10 +53,10 @@ class ProductController extends Controller
         $categories = Category::all();
         $product_cat = Product::where('category_id',$id)->get();
         $products = Product::all();
-       
+       $posts = Post::all();
         
         $categories = Category::all();
-        return view('product.showByCategory', compact('product_cat', 'categories', 'id'));
+        return view('admin.product.showByCategory', compact('product_cat', 'categories', 'id', 'posts', 'products'));
     }
     /*helper класса Product сокращает запись при условии в роуте и функции записи равны {<Product>}=$Product
     public function show(Product $product)

@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Http\Controllers\Post\BaseController;
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
+use App\Models\PostProduct;
+use App\Models\Product;
 
 class IndexController extends BaseController
 {
@@ -41,7 +43,9 @@ class IndexController extends BaseController
          dd($posts);+++++++++++++++++++++++++++*/
       //метод all выведет все записи,а для пагинации применяется метод paginate()
       //$posts = Post::paginate(2);
-      return view('post.index', compact('posts'));
+      $products = Product::all();
+      $postproducts = PostProduct::all();
+      return view('post.index', compact('posts', 'products', 'postproducts'));
    } 
 
 }

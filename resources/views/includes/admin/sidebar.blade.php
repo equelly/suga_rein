@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin</span>
+      <span class="brand-text font-weight-light">{{auth()->user()->role}}</span>
     </a>
 
     <!-- Sidebar -->
@@ -13,7 +13,7 @@
           <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Имя Пользователя</a>
+          <a href="#" class="d-block">{{auth()->user()->name}}</a>
         </div>
       </div>
 
@@ -48,20 +48,17 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('admin.post.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>К рецептам</p>
-                </a>
-              </li>
+            <!--can('view', auth()->user())-->
               <li class="nav-item">
                 <a href="{{route('admin.post.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Добавить</p>
                 </a>
               </li>
+              <!--endcan --> 
             </ul>
-          </li>
+            
+
           <li class="nav-item ">
             <a href="products" class="nav-link bg-lightblue">
           
@@ -75,7 +72,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-              <a href="edit" class="nav-link">
+              <a href="{{route('admin.product.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>К продуктам</p>
                 </a>

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+ @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Fonts -->
     <link rel="dns-prefetch" href="{{asset('//fonts.gstatic.com')}}">
     <link href="{{asset('https://fonts.bunny.net/css?family=Nunito')}}" rel="stylesheet">
@@ -69,7 +69,7 @@
                             @endif
                         @else
                             
-                                
+                        @endguest       
 
                                 <div class="" aria-labelledby="navbarDropdown">
                                     <a class="" href="{{ route('logout') }}"
@@ -83,7 +83,7 @@
                                     </form>
                                 </div>
                            
-                        @endguest
+                        
                     </ul>
                 </div>
             </div>

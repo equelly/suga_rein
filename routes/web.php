@@ -39,6 +39,16 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin','midd
         Route::patch('/post/{post}', 'UpdateController')->name('admin.post.update');
         Route::delete('/post/{post}', 'DestroyController')->name('admin.post.delete');
     });
+    Route::group(['namespace'=>'Product'], function(){
+        Route::get('/product', 'IndexController')->name('admin.product.index');
+        Route::get('/product/create', 'CreateController')->name('admin.product.create');
+        Route::post('/product', 'StoreController')->name('admin.product.store');
+        Route::get('/product/{category}', 'ShowController')->name('admin.product.show');
+        Route::get('/product/{product}/edit', 'EditController')->name('admin.product.edit');
+        Route::patch('/product/{product}', 'UpdateController')->name('admin.product.update');
+        Route::delete('/product/{category}', 'DestroyController')->name('admin.product.delete');
+        Route::get('/product/category/{category}', 'showByCategoryController')->name('admin.product.showByCategory');
+    });
 });
 
 
@@ -49,10 +59,11 @@ Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('p
 Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name('product.create');
 Route::post('/products', 'App\Http\Controllers\ProductController@store')->name('product.store');
 Route::get('/product/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
-Route::get('/product/category/{category}', 'App\Http\Controllers\ProductController@showByCategory')->name('product.showByCategory');
+//Route::get('/product/category/{category}', 'App\Http\Controllers\ProductController@showByCategory')->name('product.showByCategory');
 Route::get('/products/{product}/edit', 'App\Http\Controllers\ProductController@edit')->name('product.edit');
 Route::patch('/products/{product}', 'App\Http\Controllers\ProductController@update')->name('product.update');
 Route::delete('/products/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.delete');
+Route::get('/product/category/{category}', 'App\Http\Controllers\ProductController@showByCategory')->name('admin.product.showByCategory');
 //=========================*/
 
 Route::get('/main', 'App\Http\Controllers\MainController@index')->name('main.index');

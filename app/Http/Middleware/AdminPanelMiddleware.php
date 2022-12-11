@@ -19,7 +19,7 @@ class AdminPanelMiddleware
         //хелпер auth() из БД вытягивает пользователя который в данный момент с  данного устройства заходит на сайт
         
         //dd(auth()->id());
-        if(auth()->user()->role !== 'user'){
+        if(auth()->user()->role !== 'admin'){
             return redirect()->route('refusal');
         };
         return $next($request);

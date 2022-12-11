@@ -9,14 +9,29 @@ class Service
 {
 public function store($data)
 {
+  
+  //выделяем в отдельный массив массив продуктов привязанных к рецупту(post)
     $products = $data['products'];
-      
+  //и удаляем его из массива data, т.к. в валидации нет для записи products(a в БД поля)    
     unset($data['products']);
-    
-    
-    $post = Post::create($data);
+    //без проверки на уникальность по атрибуту 'title'----------
+    //$post = Post::create($data);
+   //-----------------------------------------------------------
+   //с проверкой на уникальность, если в БД eсть такой атрибут(поле 'title'), то добавлен не будет
+    $post = Post::firstOrCreate([
+        'title'=>$data['title']
+      ],
+    [
+      'title'=>$data['title'],
+      'content'=>$data['content'],
+      'image'=>$data['image'],
+    ]);
 
+  
+    $post->title;
+    //dd($post);
     $post->product()->attach($products);
+  
 }
 
 public function update($post, $data)

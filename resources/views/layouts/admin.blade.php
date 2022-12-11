@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellme</title>
-
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="{{asset( 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback')}}">
   <!-- Font Awesome -->
@@ -25,6 +25,41 @@
   <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+  <style>
+
+@media (max-width: 768px){
+.header .navbar a{
+	color: #63c34e;
+	min-width: 90%;
+}
+}
+@media (max-width: 768px){
+.header .navbar {
+	position: absolute;
+	
+	z-index: 1050;
+	
+	text-align: center;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+}
+}
+.col-4{
+	position: -webkit-sticky;
+    position: sticky;
+    top: 62px;
+	z-index: 10;
+	max-width: 50%;
+}
+.col-7{
+	position: absolute;
+    top: 0px;
+	left: 50%;
+	max-width: 50%;
+}
+.search-form{
+	z-index: 1050;
+}
+</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -38,15 +73,28 @@
   <nav style ="background:#20c99785;"class="main-header navbar navbar-expand navbar-dark navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
+    
+      @can('view', auth()->user())
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+      @endcan
+      <li class="nav-item d-none d-sm-inline-block ml-3">
+        <a href="index3.html" id = "demo"class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item d-none d-sm-inline-block ml-3">
         <a href="#" class="nav-link">Contact</a>
       </li>
+      <li class="nav-item ml-3">
+                <a href="{{route('admin.post.index')}}" class="nav-link">
+                  <p>Рецепты</p>
+                </a>
+              </li>
+              <li class="nav-item ml-3" >
+                <a href="{{route('admin.product.index')}}" class="nav-link">
+                  <p>Продукты</p>
+                </a>
+              </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -175,17 +223,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+      
     </div>
     <!-- /.content-header -->
 
@@ -201,7 +239,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2014-2022 <a href="https#">Horns&Hooves</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
@@ -215,6 +253,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
 
 <!-- jQuery -->
 <script src="{{asset('plugins/jquery/jquery.min.js' )}}"></script>
@@ -250,5 +289,6 @@
 <script src="{{asset ( 'dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset ('dist/js/pages/dashboard.js')}}"></script>
+
 </body>
 </html>
